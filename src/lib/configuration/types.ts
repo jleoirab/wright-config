@@ -15,10 +15,20 @@ export interface ConfigFactory<T> {
   (key: string): Config<T>;
 }
 
+/**
+ * Creates an anonymous function that gets the string value from the source
+ * @param key The config key/name
+ * @returns The anonymous function that gets the value from the source
+ */
 const getStringConfigValue = (key: string) => {
   return () => process.env[key];
 }
 
+/**
+ * The anonymous function that gets the boolean value from the source
+ * @param key The config key/name
+ * @returns The anonymous function that gets the value from the source
+ */
 const getBooleanConfigValue = (key: string) => {
   return () => {
     const val = process.env[key];
@@ -31,6 +41,11 @@ const getBooleanConfigValue = (key: string) => {
   }
 }
 
+/**
+ * The anonymous function that gets the boolean value from the source or returns a default
+ * @param key The config key/name
+ * @returns The anonymous function
+ */
 const getConfigValueOrElse = <T>(getter: ConfigGetter<T>) => {
   return (orElseVal: T) => {
     const val = getter();
