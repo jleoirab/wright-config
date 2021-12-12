@@ -22,7 +22,7 @@ export interface ConfigFactory<T> {
  */
 const getStringConfigValue = (key: string) => {
   return () => process.env[key];
-}
+};
 
 /**
  * The anonymous function that gets the boolean value from the source
@@ -38,8 +38,8 @@ const getBooleanConfigValue = (key: string) => {
     }
 
     return JSON.parse(val);
-  }
-}
+  };
+};
 
 /**
  * The anonymous function that gets the boolean value from the source or returns a default
@@ -49,9 +49,9 @@ const getBooleanConfigValue = (key: string) => {
 const getConfigValueOrElse = <T>(getter: ConfigGetter<T>) => {
   return (orElseVal: T) => {
     const val = getter();
-    return (val === undefined) ? orElseVal : val;
-  }
-}
+    return val === undefined ? orElseVal : val;
+  };
+};
 
 export const stringConfig: ConfigFactory<string> = (configKey: string) => {
   const getter = getStringConfigValue(configKey);
@@ -59,8 +59,8 @@ export const stringConfig: ConfigFactory<string> = (configKey: string) => {
   return {
     get: getter,
     getOrElse: getConfigValueOrElse(getter),
-  }
-}
+  };
+};
 
 export const booleanConfig: ConfigFactory<boolean> = (configKey: string) => {
   const getter = getBooleanConfigValue(configKey);
@@ -68,5 +68,5 @@ export const booleanConfig: ConfigFactory<boolean> = (configKey: string) => {
   return {
     get: getter,
     getOrElse: getConfigValueOrElse(getter),
-  }
-}
+  };
+};
